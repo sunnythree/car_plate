@@ -2,7 +2,7 @@
 ##### 网络模型:
  ![model](https://github.com/sunnythree/car_plate/blob/master/doc/car_plate_rec.png)
 ##### 使用方法：
-    第一步：生成训练和测试数据集
+    第一步：生成训练和测试数据集  
     ```
         cd generateCarPlate
         python3 genCarPlate.py
