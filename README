@@ -1,0 +1,11 @@
+这是一个在不分割字符的情况下直接识别车牌号码的简单项目。
+使用方法：
+    第一步：生成训练和测试数据集
+        cd generateCarPlate
+        python3 genCarPlate.py
+    第二步：训练
+        cd pytorch_model
+        python3 train.py 30
+    第三步：测试
+        python3 test.py
+
