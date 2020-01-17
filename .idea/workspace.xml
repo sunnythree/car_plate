@@ -2,66 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="13dd8a19-5adc-4a21-b035-065368133439" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate" beforeDir="false" afterPath="$PROJECT_DIR$/generateCarPlate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A01_N84E28_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A01_N84E28_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A01_NMV802_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A01_NMV802_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A02_NBD719_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A02_NBD719_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A05F26_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A137U8_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A19Z80_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A19Z80_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A19Z80_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A19Z80_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A19Z80_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A19Z80_5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A19Z80_7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A19Z80_8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A1L828_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A1L828_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A1L828_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A1L828_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A1Z726_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A203J1_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A2H337_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A2H337_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A2M801_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A2M801_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A4F288_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A5X098_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A60L48_0.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A60L48_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A60L48_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A60L48_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A60L48_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A63X72_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A6U922_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A6U922_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A79A95_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A7N292_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A82E65_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A82E65_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A85V02_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A8B389_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A8B389_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A8B389_3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A8B389_4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A8E322_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A9F208_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/Background/A03_A9F208_2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/genCarPlate.py" beforeDir="false" afterPath="$PROJECT_DIR$/generateCarPlate/genCarPlate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/imgs/京B7ETX8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/imgs/湘A1URPU.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/imgs/湘BNGG7C.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/imgs/藏A8YLX1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateCarPlate/imgs/赣AVFLJ7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pytorch_model/car_plate.pt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pytorch_model/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch_model/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pytorch_model/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch_model/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README" beforeDir="false" afterPath="$PROJECT_DIR$/README" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
