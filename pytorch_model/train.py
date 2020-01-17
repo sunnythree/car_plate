@@ -47,7 +47,6 @@ class CarPlateLoader(Dataset):
         return {"img":img_tensor, "label":label_tensor}
 
 class Net(torch.nn.Module):
-
     def __init__(self):
         super(Net, self).__init__()
         self.conv1 = nn.Conv2d(3, 32, 3)
