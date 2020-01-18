@@ -32,4 +32,6 @@ Pull request is welcome.
 #### communicate with
 QQ group: 704153141
 
+#### License
+BSD 3-Clause
 
