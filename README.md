@@ -33,6 +33,10 @@ Pull request is welcome.
 #### communicate with
 QQ group: 704153141
 
+#### 致谢
+数据集生成使用了[genCarPlate](https://github.com/derek285/generateCarPlate)，感谢作者！
+
+
 #### License
 BSD 3-Clause
 
