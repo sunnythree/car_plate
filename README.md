@@ -2,7 +2,7 @@
 #### 网络模型:
  ![model](https://github.com/sunnythree/car_plate/blob/master/doc/car_plate_rec.png)
 #### 使用方法：
-第一步：生成训练和测试数据集  
+##### 第一步：生成训练和测试数据集  
 ```
     cd generateCarPlate
     python3 genCarPlate.py
@@ -13,12 +13,13 @@
 ![津GMQGF7](https://github.com/sunnythree/car_plate/blob/master/doc/津GMQGF7.jpg)  
 ![渝M885B9](https://github.com/sunnythree/car_plate/blob/master/doc/渝M885B9.jpg)  
 ![蒙ZUTK8T](https://github.com/sunnythree/car_plate/blob/master/doc/蒙ZUTK8T.jpg)  
-第二步：训练
+##### 第二步：训练
 ```
     cd pytorch_model
-    python3 train.py 30
+    python3 train.py 30 0.0001
 ```
-第三步：测试
+30是在训练集训练的次数，）0.0001是学习速率  
+##### 第三步：测试
 ```
     python3 test.py
 ```
