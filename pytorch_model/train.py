@@ -52,11 +52,14 @@ class Net(torch.nn.Module):
         self.conv1 = nn.Conv2d(3, 32, 3)
         self.conv2 = nn.Conv2d(32, 64, 3)
         self.conv3 = nn.Conv2d(64, 32, 3)
-        self.conv4 = nn.Conv2d(32, 10, 3)
+        self.conv4 = nn.Conv2d(32, 10, 1)
         # an affine operation: y = Wx + b
-        self.fc1 = nn.Linear(26 * 5 * 10, 512)
-        self.fc2 = nn.Linear(512, 238)
+        self.fc1 = nn.Linear(28 * 7 * 10, 512)
+        self.fc2 = nn.Linear(512, 128)
+        self.fc3 = nn.Linear(128, 238)
 
+        self.dropout1 = nn.Dropout2d(0.25)
+        self.dropout2 = nn.Dropout2d(0.3)
 
     def forward(self, x):
         x = F.leaky_relu(self.conv1(x))
@@ -66,10 +69,12 @@ class Net(torch.nn.Module):
         x = F.leaky_relu(self.conv3(x))
         x = F.max_pool2d(x, (2, 2))
         x = F.leaky_relu(self.conv4(x))
-        x = x.view(-1, 26 * 5 * 10)
+        x = x.view(-1, 28 * 7 * 10)
         x = F.leaky_relu(self.fc1(x))
-        x = F.dropout(x)
-        x = self.fc2(x)
+        x = self.dropout1(x)
+        x = F.leaky_relu(self.fc2(x))
+        x = self.dropout2(x)
+        x = self.fc3(x)
         x = x.view(-1, 7, 34)
         x = F.softmax(x, dim=2)
         x = x.view(-1, 238)
@@ -81,6 +86,7 @@ class Net(torch.nn.Module):
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('epoes', type=int, default=30, help='train epoes')
+    parser.add_argument('lr', type=float, default=0.0001, help='train epoes')
 
     return parser.parse_args()
 
@@ -88,14 +94,14 @@ def parse_args():
 def main(args):
     pics = os.listdir(PICS_PATH)
     data_set = CarPlateLoader(pics)
-    data_loader = DataLoader(data_set, batch_size=10, shuffle=True, num_workers=1)
+    data_loader = DataLoader(data_set, batch_size=50, shuffle=True, num_workers=8)
 
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
     model = Net().to(device)
     if os.path.exists("car_plate.pt"):
         model.load_state_dict(torch.load("car_plate.pt"))
-    optimizer = optim.Adam(model.parameters(), lr=0.0001)
+    optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=1e-5)
     scheduler = StepLR(optimizer, step_size=2, gamma=0.9)
 
     for i in range(args.epoes):

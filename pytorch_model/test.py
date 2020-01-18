@@ -5,6 +5,7 @@ import numpy as np
 import torch.nn.functional as F
 import torch.nn as nn
 import os
+from time import time
 
 PICS_PATH = "../data/test"
 
@@ -50,11 +51,14 @@ class Net(torch.nn.Module):
         self.conv1 = nn.Conv2d(3, 32, 3)
         self.conv2 = nn.Conv2d(32, 64, 3)
         self.conv3 = nn.Conv2d(64, 32, 3)
-        self.conv4 = nn.Conv2d(32, 10, 3)
+        self.conv4 = nn.Conv2d(32, 10, 1)
         # an affine operation: y = Wx + b
-        self.fc1 = nn.Linear(26 * 5 * 10, 512)
-        self.fc2 = nn.Linear(512, 238)
+        self.fc1 = nn.Linear(28 * 7 * 10, 512)
+        self.fc2 = nn.Linear(512, 128)
+        self.fc3 = nn.Linear(128, 238)
 
+        self.dropout1 = nn.Dropout2d(0.25)
+        self.dropout2 = nn.Dropout2d(0.3)
 
     def forward(self, x):
         x = F.leaky_relu(self.conv1(x))
@@ -64,10 +68,12 @@ class Net(torch.nn.Module):
         x = F.leaky_relu(self.conv3(x))
         x = F.max_pool2d(x, (2, 2))
         x = F.leaky_relu(self.conv4(x))
-        x = x.view(-1, 26 * 5 * 10)
+        x = x.view(-1, 28 * 7 * 10)
         x = F.leaky_relu(self.fc1(x))
-        x = F.dropout(x)
-        x = self.fc2(x)
+        x = self.dropout1(x)
+        x = F.leaky_relu(self.fc2(x))
+        x = self.dropout2(x)
+        x = self.fc3(x)
         x = x.view(-1, 7, 34)
         x = F.softmax(x, dim=2)
         x = x.view(-1, 238)
@@ -96,11 +102,13 @@ def main():
         img_tensor = img_tensor.float()
         img_tensor = img_tensor.reshape([1, 3, 70, 238])
         img_tensor = img_tensor.to(device)
+        t1 = time()
         output = model(img_tensor).cpu()
+        t2 = time()
         output_label = parseOutput(output.detach().numpy())
         if output_label == label:
             right_count += 1
-        print("label is " + label + " ,network predict is " + output_label)
+        print("label is " + label + " ,network predict is " + output_label+" cost is "+str(t2-t1)+"s")
     print(len(pics), right_count)
     print("correct rate is " + str(right_count / len(pics)))
 
