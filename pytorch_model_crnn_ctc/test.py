@@ -7,7 +7,7 @@ import torch.nn as nn
 import os
 from time import time
 
-PICS_PATH = "../data/train"
+PICS_PATH = "../data/test"
 
 CHARS = ["京", "沪", "津", "渝", "冀", "晋", "蒙", "辽", "吉", "黑",
          "苏", "浙", "皖", "闽", "赣", "鲁", "豫", "鄂", "湘", "粤",
@@ -18,21 +18,28 @@ CHARS = ["京", "沪", "津", "渝", "冀", "晋", "蒙", "辽", "吉", "黑",
 
 def parseOutput(output):
     label = ""
+    last_char = ''
     for i in range(output.shape[0]):
         latter = CHARS[output[i]]
-        #if latter != "-":
-        label += latter
+        if latter != "-":
+            if i > 0 and latter != last_char:
+                label += latter
+                last_char = latter
+                continue
+            label += latter
+            last_char = latter
     return label
 
 class FeatureMap(torch.nn.Module):
-    def __init__(self):
+    def __init__(self, batch):
         super(FeatureMap, self).__init__()
+        self.batch = batch
 
     def forward(self, x):
-        x = torch.split(x, 4, dim=3)
+        x = torch.split(x, 2, dim=3)
         tl = []
         for i in range(len(x)):
-            tmp = x[i].reshape(1, 16 * 4)
+            tmp = x[i].reshape(self.batch, 32 * 8 * 2)
             tl.append(tmp)
         out = torch.stack(tl, dim=1)
         return out
@@ -46,11 +53,11 @@ class Net(torch.nn.Module):
         self.conv2 = nn.Conv2d(32, 64, 3, padding=1)
         self.conv3 = nn.Conv2d(64, 64, 3, padding=1)
         self.conv4 = nn.Conv2d(64, 32, 3, padding=1)
-        self.conv5 = nn.Conv2d(32, 1, 1)
          # an affine operation: y = Wx + b
         self.num_layers = num_layers
-        self.lstm1 = nn.LSTM(64, 66, num_layers=self.num_layers, bidirectional=True)
-        self.fm = FeatureMap()
+        self.gru1 = nn.GRU(32*16, 128, num_layers=self.num_layers, bidirectional=True, dropout=0.3)
+        self.fm = FeatureMap(self.batch)
+        self.fc = nn.Linear(256, 66)
         #2*10  4*20 8*40 16*80 32*160
 
     def forward(self, x):
@@ -59,13 +66,13 @@ class Net(torch.nn.Module):
         x = F.max_pool2d(x, (2, 2))
         x = F.leaky_relu(self.conv3(x))
         x = F.leaky_relu(self.conv4(x))
-        x = F.leaky_relu(self.conv5(x))
+        x = F.max_pool2d(x, (2, 2))
         x = self.fm(x)
         x = x.permute(1, 0, 2)
-        x, (h, c) = self.lstm1(x)
+        x, h = self.gru1(x)
+        x = self.fc(x)
         x = F.log_softmax(x, dim=2)
         return x
-
 
 def main():
     pics = os.listdir(PICS_PATH)
@@ -85,6 +92,7 @@ def main():
 
         img_tensor = torch.from_numpy(numpy_array)
         img_tensor = img_tensor.float()
+        img_tensor /= 256
         img_tensor = img_tensor.reshape([1, 3, 32, 160])
         img_tensor = img_tensor.to(device)
         t1 = time()

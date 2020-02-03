@@ -52,7 +52,6 @@ class CarPlateLoader(Dataset):
         img_tensor = torch.from_numpy(numpy_array)
         img_tensor = img_tensor.float()
         img_tensor /= 256
-        # img_tensor = img_tensor.permute(1,2,0)
 
         label_tensor = torch.zeros(7, dtype=torch.int)
         for i in range(7):
@@ -60,15 +59,15 @@ class CarPlateLoader(Dataset):
         return {"img": img_tensor, "label": label_tensor}
 
 class FeatureMap(torch.nn.Module):
-    def __init__(self):
+    def __init__(self, batch):
         super(FeatureMap, self).__init__()
+        self.batch = batch
 
     def forward(self, x):
-        x = torch.split(x, 4, dim=3)
+        x = torch.split(x, 2, dim=3)
         tl = []
         for i in range(len(x)):
-            tmp = x[i].reshape(10, 1, 16 * 4)
-            tmp = torch.squeeze(tmp)
+            tmp = x[i].reshape(self.batch, 32 * 8 * 2)
             tl.append(tmp)
         out = torch.stack(tl, dim=1)
         return out
@@ -82,11 +81,11 @@ class Net(torch.nn.Module):
         self.conv2 = nn.Conv2d(32, 64, 3, padding=1)
         self.conv3 = nn.Conv2d(64, 64, 3, padding=1)
         self.conv4 = nn.Conv2d(64, 32, 3, padding=1)
-        self.conv5 = nn.Conv2d(32, 1, 1)
          # an affine operation: y = Wx + b
         self.num_layers = num_layers
-        self.lstm1 = nn.LSTM(64, 66, num_layers=self.num_layers, bidirectional=True)
-        self.fm = FeatureMap()
+        self.gru1 = nn.GRU(32*16, 128, num_layers=self.num_layers, bidirectional=True, dropout=0.3)
+        self.fm = FeatureMap(self.batch)
+        self.fc = nn.Linear(256, 66)
         #2*10  4*20 8*40 16*80 32*160
 
     def forward(self, x):
@@ -95,10 +94,11 @@ class Net(torch.nn.Module):
         x = F.max_pool2d(x, (2, 2))
         x = F.leaky_relu(self.conv3(x))
         x = F.leaky_relu(self.conv4(x))
-        x = F.leaky_relu(self.conv5(x))
+        x = F.max_pool2d(x, (2, 2))
         x = self.fm(x)
         x = x.permute(1, 0, 2)
-        x, (h, c) = self.lstm1(x)
+        x, h = self.gru1(x)
+        x = self.fc(x)
         x = F.log_softmax(x, dim=2)
         return x
 
@@ -114,7 +114,7 @@ def parse_args():
 def main(args):
     pics = os.listdir(PICS_PATH)
     data_set = CarPlateLoader(pics)
-    data_loader = DataLoader(data_set, batch_size=10, shuffle=True, num_workers=8)
+    data_loader = DataLoader(data_set, batch_size=args.batch, shuffle=True, num_workers=8)
 
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
@@ -140,13 +140,14 @@ def main(args):
                 targets_size[iii] = label_tensor[iii].shape[0]
             loss = F.ctc_loss(output, label_tensor, inputs_size, targets_size, blank=65)
             loss.backward()
+            nn.utils.clip_grad_norm_(model.parameters(), 400)
             optimizer.step()
             if i_batch % 100 == 0:
                 tmp = torch.squeeze(output.cpu()[:, 0, :])
                 values, indexs = tmp.max(1)
                 print(i, i_batch, "loss=" + str(loss.cpu().item()), "lr=" + str(scheduler.get_lr()),
-                      ",label is " + parseOutput(label_tensor[0]) + " ,network predict is " + parseOutput(indexs))
-        #scheduler.step()
+                      ",random check: label is " + parseOutput(label_tensor[0]) + " ,network predict is " + parseOutput(indexs))
+        scheduler.step()
 
     torch.save(model.state_dict(), "car_plate.pt")
 
