@@ -1,6 +1,4 @@
 这是一个在不分割字符的情况下直接识别车牌号码的简单项目。
-#### 网络模型:
- ![model](https://github.com/sunnythree/car_plate/blob/master/doc/car_plate_rec.png)
 #### 使用方法：
 ##### 第一步：生成训练和测试数据集  
 ```
@@ -16,6 +14,8 @@
 生成的图片已经做了旋转、模糊、灰度变化等图像增强。git
 
 ### 训练卷积only的模型
+##### 网络模型:
+ ![model](https://github.com/sunnythree/car_plate/blob/master/doc/car_plate_rec.png)
 ##### 训练
 ```
     cd pytorch_model
@@ -30,6 +30,8 @@
 这个准确率不算高，由于我的笔记本算力有限，没能进一步训练更大、更好的模型，不过我想，这个项目已足以证明不分割直接识别车牌的可行性
 
 ### 训练crnn(双向gru)+ctc
+##### 网络模型:
+ ![model](https://github.com/sunnythree/car_plate/blob/master/doc/crnn-ctc.png)
 ##### 训练
 ```
     cd pytorch_model
