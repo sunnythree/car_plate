@@ -19,16 +19,19 @@ CHARS = ["京", "沪", "津", "渝", "冀", "晋", "蒙", "辽", "吉", "黑",
 def parseOutput(output):
     label = ""
     last_char = ''
+    last_is_char = -1  # 上一个char是‘-’时等于0，不是‘-’时等于1，初始值-1
     for i in range(output.shape[0]):
         latter = CHARS[output[i]]
-        if latter != "-":
-            if i > 0 and latter != last_char:
-                label += latter
-                last_char = latter
+        if latter == "-":
+            last_is_char = 0
+        else:
+            if i > 0 and latter == last_char and last_is_char == 1:
                 continue
             label += latter
             last_char = latter
+            last_is_char = 1
     return label
+
 
 class FeatureMap(torch.nn.Module):
     def __init__(self, batch):
